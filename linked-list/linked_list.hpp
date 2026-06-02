@@ -1,23 +1,55 @@
-#include "linked_list.h"
+#ifndef LINKED_LIST_HPP_
+#define LINKED_LIST_HPP_
+
 #include <iostream>
 
 namespace Linked_List {
+        template <typename T>
+        struct Node {
+                T data;
+                Node *next;
+
+                Node(); // empty list
+                Node(const T &value, Node *n = nullptr);
+        }; // struct Node
+
+        template <typename T>
+        class LinkedList {
+        private:
+                Node<T> *root;
+        public:
+                LinkedList();
+                ~LinkedList();
+                bool insert(const T &value);
+                bool remove(const T &value);
+                T get_first();
+                T get_last();
+                int size();
+                bool isEmpty();
+                void prettyPrint();
+        }; // class LinkedList
+
 
         // Node implementation
-        Node::Node() {
-                data = 0;
+        template <typename T>
+        Node<T>::Node() {
+                data = T(); // T() default constructor
                 next = nullptr;
         }
 
-        Node::Node(int &value, Node *n) {
+        template <typename T>
+        Node<T>::Node(const T &value, Node *n) {
                 data = value;
                 next = n;
         }
 
-        LinkedList::LinkedList() { root = nullptr; }
+        // LinkedList implementation
+        template <typename T>
+        LinkedList<T>::LinkedList() { root = nullptr; }
 
-        LinkedList::~LinkedList() {
-                Node *current { nullptr };
+        template <typename T>
+        LinkedList<T>::~LinkedList() {
+                Node<T> *current { nullptr };
                 while (root) {
                         current = root;
                         root = root->next;
@@ -25,29 +57,31 @@ namespace Linked_List {
                 }
         }
 
-        bool LinkedList::insert(int &value) {
+        template <typename T>
+        bool LinkedList<T>::insert(const T &value) {
                 if (!root) {
-                        root = new Node(value, nullptr);
+                        root = new Node<T>(value, nullptr);
                         return true;
                 }
 
-                Node *current { root };
+                Node<T> *current { root };
                 while (current->next) {
                         current = current->next;
                 }
-                current->next = new Node(value, nullptr);
+                current->next = new Node<T>(value, nullptr);
                 return true;
         }
 
-        bool LinkedList::remove(int &value) {
+        template <typename T>
+        bool LinkedList<T>::remove(const T &value) {
                 bool isDelete { false };
-                Node *previous { nullptr }, *current { root };
+                Node<T> *previous { nullptr }, *current { root };
                 while (current && (current->data != value)) {
                         previous = current;
                         current = current->next;
                 }
 
-                if (current->data == value) {
+                if (current && current->data == value) {
                         if (previous) {
                                 previous->next = current->next;
                         } else {
@@ -59,7 +93,8 @@ namespace Linked_List {
                 return isDelete;
         }
 
-        int LinkedList::get_first() {
+        template <typename T>
+        T LinkedList<T>::get_first() {
                 if (root) {
                         return root->data;
                 } else {
@@ -68,9 +103,10 @@ namespace Linked_List {
                 }
         }
 
-        int LinkedList::get_last() {
+        template <typename T>
+        T LinkedList<T>::get_last() {
                 if (root) {
-                        Node *current { root };
+                        Node<T> *current { root };
                         while (current->next) {
                                 current = current->next;
                         }
@@ -81,10 +117,11 @@ namespace Linked_List {
                 }
         }
 
-        int LinkedList::size() {
+        template <typename T>
+        int LinkedList<T>::size() {
                 if (root) {
                         int size {};
-                        Node *current { root };
+                        Node<T> *current { root };
                         while (current) {
                                 current = current->next;
                                 size += 1;
@@ -95,7 +132,8 @@ namespace Linked_List {
                 }
         }
 
-        bool LinkedList::isEmpty() {
+        template <typename T>
+        bool LinkedList<T>::isEmpty() {
                 if (root) {
                         return false;
                 } else {
@@ -103,9 +141,10 @@ namespace Linked_List {
                 }
         }
 
-        void LinkedList::prettyPrint() {
+        template <typename T>
+        void LinkedList<T>::prettyPrint() {
                 if (root) {
-                        Node *current{root};
+                        Node<T> *current{root};
                         std::cout << "{ ";
                         while (current->next) {
                                 std::cout << current->data << " -> ";
@@ -116,4 +155,6 @@ namespace Linked_List {
                         std::cout << "This linked list is empty\n";
                 }
         }
-}
+} // namespace LinkedList
+
+#endif // LINKED_LIST_HPP_

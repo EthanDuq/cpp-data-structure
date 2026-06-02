@@ -1,11 +1,12 @@
 #include <iostream>
-#include "linked_list.h"
+#include "linked_list.hpp"
 
 using namespace Linked_List;
 
 int main() {
-        Linked_List::LinkedList list;
-        int x {1}, y {2}, z {x + y};
+        Linked_List::LinkedList<char> list;
+        // int x {1}, y {2}, z {x + y};
+        char x {'a'}, y {'b'}, z {'c'};
 
         list.prettyPrint();
         list.insert(x);
