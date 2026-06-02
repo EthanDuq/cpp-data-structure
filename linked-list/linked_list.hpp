@@ -2,6 +2,7 @@
 #define LINKED_LIST_HPP_
 
 #include <iostream>
+#include <optional>
 
 namespace Linked_List {
         template <typename T>
@@ -22,8 +23,8 @@ namespace Linked_List {
                 ~LinkedList();
                 bool insert(const T &value);
                 bool remove(const T &value);
-                T get_first();
-                T get_last();
+                std::optional<T> get_first();
+                std::optional<T> get_last();
                 int size();
                 bool isEmpty();
                 void prettyPrint();
@@ -94,17 +95,17 @@ namespace Linked_List {
         }
 
         template <typename T>
-        T LinkedList<T>::get_first() {
+        std::optional<T> LinkedList<T>::get_first() {
                 if (root) {
                         return root->data;
                 } else {
-                        std::cout << "Empty linked list, return \n";
-                        return -1;
+                        std::cout << "Empty linked list, return nullopt\n";
+                        return std::nullopt;
                 }
         }
 
         template <typename T>
-        T LinkedList<T>::get_last() {
+        std::optional<T> LinkedList<T>::get_last() {
                 if (root) {
                         Node<T> *current { root };
                         while (current->next) {
@@ -112,8 +113,8 @@ namespace Linked_List {
                         }
                         return current->data;
                 } else {
-                        std::cout << "Empty linked list, return -1\n";
-                        return -1;
+                        std::cout << "Empty linked list, return nullopt\n";
+                        return std::nullopt;
                 }
         }
 
