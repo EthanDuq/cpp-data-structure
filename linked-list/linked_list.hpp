@@ -28,6 +28,19 @@ namespace Linked_List {
                 int size();
                 bool isEmpty();
                 void prettyPrint();
+                bool exist(const T &value);
+                bool replace(const T &value, const T &new_value);
+
+                template <typename P>
+                std::optional<T> find_if(P predicate) {
+                Node<T> *current { root };
+                while (current) {
+                        if (predicate(current->data))
+                                return current->data;
+                        current = current->next;
+                }
+                return std::nullopt;
+                } // find_if
         }; // class LinkedList
 
 
@@ -156,6 +169,31 @@ namespace Linked_List {
                         std::cout << "This linked list is empty\n";
                 }
         }
+
+        template <typename T>
+        bool LinkedList<T>::exist(const T &value) {
+                Node<T> *current { root };
+                while (current) {
+                        if (current->data == value)
+                                return true;
+                        current = current->next;
+                }
+                return false;
+        }
+
+        template <typename T>
+        bool LinkedList<T>::replace(const T &value, const T &new_value) {
+                Node<T> *current{ root };
+                while (current) {
+                        if (current->data == value) {
+                                current->data = new_value;
+                                return true;
+                        }
+                        current = current->next;
+                }
+                return false;
+        }
+
 } // namespace LinkedList
 
 #endif // LINKED_LIST_HPP_
