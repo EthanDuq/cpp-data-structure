@@ -1,0 +1,27 @@
+#+title: Heap Notes
+
+To insert a new node in a heap (min or max) you need to check if the rule of the heap is not violated.
+For a min you need find a place for the node to add it as a leaf and after that you need to raise the node
+if it can.
+
+First ideas:
+
+to find the new parent node we can use index but here we have chained node so we can use bits to know position
+and path to the first empty place for a node. root is index 0, left child is 1 and right is 2, left left child is 3 ect ect,
+if we have a heap with 3 nodes and want to add another one it will has 4 nodes, 4 in bits is 100, if we remove
+the head of 100 we have 00, BUT heap index follow simple pattern left child is 2*i + 1 index with i the position of the parent,
+right child is 2*i + 2, make no sense but if the index of the heap start by 1 we have left child 2*i and right 2*i +1,
+so we can determine a path of a node by reading the bits of it position. 0 in bits mean LEFT, 1 means RIGHT.
+If we have 3 nodes and we adding a new node we have 4 nodes, 4 = 100, we remove the head -> 00, LEFT- LEFT.
+So the function we need to make has to find the new size, find the parent that will have a new child,
+determine the path with the bits methods and add the new child.
+Thing to know, we need to stop on the parent to change the value of the child so we need to remove the head 2 times to find
+the parent.
+
+After placing the node we need to put it in the right place according min or max heap.
+We can make a stack of Node pointer that store the position of each parent until we are on the root,
+parent1 and the node violate the rule we swap them and compare the node with parent2 ect ect.
+
+To remove the root we need to replace it with the last nodes added.
+after that we compare each nodes to check if the heap is still a heap if the node is > than it 2 children
+we swap it with the smallest one ect ect until we are good.
