@@ -16,9 +16,9 @@ namespace BinarySearchTree {
                         Node<T> *detach_min(Node<T> *&_node);
 
                 public:
-                        bool insert(T &_value) override { return insert(this->root, _value); }
-                        bool remove(T &_value) override { return remove(this->root, _value); }
-                        bool exist(T &_value) override { return exist(this->root, _value); }
+                        virtual bool insert(T &_value) override { return insert(this->root, _value); }
+                        virtual bool remove(T &_value) override { return remove(this->root, _value); }
+                        virtual bool exist(T &_value) override { return exist(this->root, _value); }
 
         }; // class BST
 

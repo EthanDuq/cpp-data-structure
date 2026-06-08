@@ -1,5 +1,5 @@
 #include <iostream>
-#include "binary_search_tree.hpp"
+#include "BST.hpp"
 
 using namespace BinarySearchTree;
 
